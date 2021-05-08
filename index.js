@@ -35,14 +35,27 @@ ReactDOM.render(
 
 //para no tener que ahcerlo de esa forma y poder JSX tenemos que importar otro script ademas de  un script babel 
 const $app = document.getElementById("app");
+const {useState} = React   // esto es lo mismo que const useState = React.useState
 
+    const Avatar = (props) => {
+      /*Forma larga    
+      const state = useState(true)
+      const enable = state[0]
+      const setEnabled = state[1] vs forma corta:*/
 
-    const Avatar = (params) => {
-      const src = `https://randomuser.me/api/portraits/women/${params.id}.jpg`;
+      const[enabled, setEnabled] = useState(true)
+
+      const src = `https://randomuser.me/api/portraits/women/${props.id}.jpg`;
+
+      const className = enabled ? '' : 'disabled';
+
       return (
       <picture>
-        <img src={src} />
-        <span>{params.name}</span>
+        <img 
+          onClick={() => setEnabled(!enabled)}
+          className={className} 
+          src={src} />
+        <span>{props.name}</span>
         </picture>)
     };
 
@@ -53,3 +66,4 @@ const $app = document.getElementById("app");
         <Avatar id= {22} name="Sam"/>
       </div>, $app
 );
+
