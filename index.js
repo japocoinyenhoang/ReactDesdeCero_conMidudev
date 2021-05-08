@@ -47,13 +47,23 @@ const {useState} = React   // esto es lo mismo que const useState = React.useSta
 
       const src = `https://randomuser.me/api/portraits/women/${props.id}.jpg`;
 
-      const className = enabled ? '' : 'disabled';
+      let pictureClassName = '';
+      
+      if (props.size === 'small') {
+          pictureClassName = "is-small";
+        }else if (props.size === 'large') {
+          pictureClassName = "is-large"
+      };
+
+      //const pictureClassName = props.size === 'small' ? 'is-small':'';
+      const imgClassName = enabled ? '' : 'disabled';
+      
 
       return (
-      <picture>
+      <picture className={pictureClassName}>
         <img 
           onClick={() => setEnabled(!enabled)}
-          className={className} 
+          className={imgClassName} 
           src={src} />
         <span>{props.name}</span>
         </picture>)
@@ -62,8 +72,10 @@ const {useState} = React   // esto es lo mismo que const useState = React.useSta
 
     ReactDOM.render(
       <div>
-        <Avatar id= {12} name="Linda"/>
-        <Avatar id= {22} name="Sam"/>
+        
+        <Avatar id= {22} name="Sam" size="small"/>
+        <Avatar id= {45} name="Linda" />
+        <Avatar id= {12} name="Linda" size="large"/>
       </div>, $app
 );
 

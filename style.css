@@ -4,12 +4,19 @@ picture {
   text-align: center;
   width: 100px;
 }
+
 img {
   box-shadow: 0 0 15 #999;
   border-radius: 50%;
-  width: 100px;
 }
 
 img.disabled {
-  opacity: .3;
+  opacity: 0.3;
+}
+
+picture.is-small {
+  width: 50px;
+}
+picture.is-large {
+  width: 200px;
 }
