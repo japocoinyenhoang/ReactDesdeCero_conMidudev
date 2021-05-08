@@ -37,7 +37,7 @@ ReactDOM.render(
 const $app = document.getElementById("app");
 const {useState} = React   // esto es lo mismo que const useState = React.useState
 
-    const Avatar = (props) => {
+    const Avatar = ({id, name = "Default name", size}) => {
       /*Forma larga    
       const state = useState(true)
       const enable = state[0]
@@ -45,13 +45,15 @@ const {useState} = React   // esto es lo mismo que const useState = React.useSta
 
       const[enabled, setEnabled] = useState(true)
 
-      const src = `https://randomuser.me/api/portraits/women/${props.id}.jpg`;
+
+      const src = `https://randomuser.me/api/portraits/women/${id}.jpg`;
+      //if (!id) return (<img className="no-image" scr="https://randomuser.me/api/portraits/lego/8.jpg" />)
 
       let pictureClassName = '';
       
-      if (props.size === 'small') {
+      if (size === 'small') {
           pictureClassName = "is-small";
-        }else if (props.size === 'large') {
+        }else if (size === 'large') {
           pictureClassName = "is-large"
       };
 
@@ -61,12 +63,14 @@ const {useState} = React   // esto es lo mismo que const useState = React.useSta
 
       return (
       <picture className={pictureClassName}>
-        <img 
-          onClick={() => setEnabled(!enabled)}
-          className={imgClassName} 
-          src={src} />
-        <span>{props.name}</span>
-        </picture>)
+        {
+          id ?  (
+            <img onClick={() => setEnabled(!enabled)} className={imgClassName} src={src} />
+                ) : (<img className="no-image" src="https://randomuser.me/api/portraits/lego/8.jpg" />)
+        }
+        <span>{enabled ? name : "Desactivada"}</span>
+        </picture>        
+      );
     };
 
 
@@ -75,6 +79,7 @@ const {useState} = React   // esto es lo mismo que const useState = React.useSta
         
         <Avatar id= {22} name="Sam" size="small"/>
         <Avatar id= {45} name="Linda" />
+        <Avatar size="large" name="Click"/>
         <Avatar id= {12} name="Linda" size="large"/>
       </div>, $app
 );
